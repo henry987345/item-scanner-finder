@@ -1,0 +1,74 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+<React.StrictMode>
+<App />
+</React.StrictMode>
+);
+
+
+// Register service worker for PWA functionality
+serviceWorkerRegistration.register();
+
+
+// ===============================
+// App.js
+// ===============================
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
+import { Search, ShoppingCart, Camera, Loader2 } from "lucide-react";
+import { Html5QrcodeScanner } from "html5-qrcode";
+
+
+const mockDatabase = {
+"012345678905": {
+name: "Coca-Cola 12oz Can",
+stores: [
+{ name: "Amazon", url: "https://www.amazon.com" },
+{ name: "Walmart", url: "https://www.walmart.com" },
+],
+},
+"036000291452": {
+name: "Kleenex Tissues",
+stores: [
+{ name: "Target", url: "https://www.target.com" },
+{ name: "Walmart", url: "https://www.walmart.com" },
+],
+},
+};
+
+
+export default function App() {
+const [code, setCode] = useState("");
+const [item, setItem] = useState(null);
+const [error, setError] = useState("");
+const [scanning, setScanning] = useState(false);
+const [loading, setLoading] = useState(false);
+
+
+const handleSearch = async (inputCode = code) => {
+setLoading(true);
+await new Promise((r) => setTimeout(r, 800)); // simulate API delay
+
+
+if (mockDatabase[inputCode]) {
+setItem(mockDatabase[inputCode]);
+setError("");
+} else {
+setItem(null);
+setError("Item not found in database.");
+}
+setLoading(false);
+};
+
+
+*/
